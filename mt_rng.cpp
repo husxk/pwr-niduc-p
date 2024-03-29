@@ -47,7 +47,7 @@ uint32_t get_next(uint32_t min, uint32_t max)
     {
         return min;
     }
-    uint32_t range = (uint32_t)(max - min + 1);
+    uint64_t range = (uint64_t)(max - min) + 1;
     uint32_t random_value = mersenne_twister();
     uint32_t scaled_random = random_value % range;
     return min + scaled_random;
