@@ -41,7 +41,7 @@ uint32_t mersenne_twister()
     return y;
 }
 
-uint32_t get_next(int32_t min, int32_t max)
+uint32_t get_next(uint32_t min, uint32_t max)
 {
     if (min >= max)
     {
