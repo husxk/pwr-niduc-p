@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <mt_rng.hpp>
+#include "mt_rng.hpp"
 
 static uint32_t MT[624];
 static int32_t mti = 0;
@@ -41,13 +41,13 @@ uint32_t mersenne_twister()
     return y;
 }
 
-uint32_t get_next(int32_t min, int32_t max)
+uint32_t get_next(uint32_t min, uint32_t max)
 {
     if (min >= max)
     {
         return min;
     }
-    uint32_t range = (uint32_t)(max - min + 1);
+    uint64_t range = (uint64_t)(max - min) + 1;
     uint32_t random_value = mersenne_twister();
     uint32_t scaled_random = random_value % range;
     return min + scaled_random;
