@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include <mt_rng.hpp>
+#include "mt_rng.hpp"
 
 static uint32_t MT[624];
 static int32_t mti = 0;
