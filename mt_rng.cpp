@@ -1,8 +1,15 @@
-#include <stdint.h>
+#include <cstdint>
+#include <cmath>
 #include "mt_rng.hpp"
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 static uint32_t MT[624];
 static int32_t mti = 0;
+
+constexpr double TWO_PI = 2.0 * M_PI;
 
 void init_mt(uint32_t x0)
 {
@@ -18,7 +25,7 @@ void init_mt(uint32_t x0)
     }
 }
 
-uint32_t mersenne_twister()
+static uint32_t mersenne_twister()
 {
     const uint32_t MA[] = {0, 0x9908b0df};
     uint32_t y;
@@ -51,4 +58,27 @@ uint32_t get_next(uint32_t min, uint32_t max)
     uint32_t random_value = mersenne_twister();
     uint32_t scaled_random = random_value % range;
     return min + scaled_random;
+}
+
+uint32_t get_normal(double mean, double standard_deviation)
+{
+    //the method generates two values. In order not to drop the second value we store it in z1 variable.
+
+    static double z1;
+    static bool generate;
+    generate = !generate; //flag to alter between generating new pair or returning the second value from pair
+
+    if (!generate)
+        return static_cast<uint32_t>(z1 * standard_deviation + mean);
+
+    double u1, u2, z0;
+    do
+    {
+        u1 = mersenne_twister() * (1.0 / static_cast<double>(UINT32_MAX));
+        u2 = mersenne_twister() * (1.0 / static_cast<double>(UINT32_MAX));
+        z0 = sqrt(-2.0 * log(u1)) * cos(TWO_PI * u2);
+        z1 = sqrt(-2.0 * log(u1)) * sin(TWO_PI * u2);
+    } while (std::isnan(z0) || std::isnan(z1));
+
+    return static_cast<uint32_t>(z0 * standard_deviation + mean);
 }
