@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(${PROJECT_NAME}
   main.cpp
   mt_rng.cpp
+  tea.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
