@@ -30,10 +30,12 @@ simulation{
 
     pack->distort_data(3);
 
-    printf("This much %% of bits not matching : %f\n", ((float)pack->check_packet(enc_pack)/((float)pack->data_size*8.0f))*100.0f);
+    printf("This much %% of bits not matching : %f\n", 
+        ((float)pack->check_packet(enc_pack)/((float)pack->data_size*8.0f))*100.0f);
     enc->decrypt_data();
 
-    printf("This much %% of bits not matching after decryption : %f\n", ((float)pack->check_packet(begin_pack)/((float)pack->data_size*8.0f))*100.0f);
+    printf("This much %% of bits not matching after decryption : %f\n", 
+        ((float)pack->check_packet(begin_pack)/((float)pack->data_size*8.0f))*100.0f);
   }
 
   inline void
