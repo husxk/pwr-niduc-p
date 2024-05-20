@@ -1,5 +1,7 @@
 #pragma once
 
+#include "mt_rng.hpp"
+
 #define  TEA_DELTA 0x9e3779b9        // Key schedule constant
 #define  TEA_SUM_DECRYPT 0xc6ef3720
 #define  TEA_KEY_SIZE 4
@@ -13,7 +15,7 @@ class tea_ctx_t {
     uint32_t    *data;
     uint32_t    data_size;
 
-    tea_ctx_t(uint8_t *data, uint32_t u8_datasize);
+    tea_ctx_t(uint8_t **data, uint32_t *u8_datasize);
     ~tea_ctx_t();
     
     void print_data(void);

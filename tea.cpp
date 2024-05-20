@@ -6,7 +6,7 @@
 #include "mt_rng.hpp"
 #include "tea.hpp"
 
-tea_ctx_t::tea_ctx_t(uint8_t *data, uint32_t u8_datasize)
+tea_ctx_t::tea_ctx_t(uint8_t **data, uint32_t *u8_datasize)
 {
   this->key[0] = get_next(0,-1);
   this->key[1] = get_next(0,-1);
@@ -14,19 +14,19 @@ tea_ctx_t::tea_ctx_t(uint8_t *data, uint32_t u8_datasize)
   this->key[3] = get_next(0,-1);
 
   const uint32_t u32_datasize = 
-    u8_datasize % TEA_DATABLOCK_SIZE == 0 ? 
-    u8_datasize/TEA_DATABLOCK_SIZE : 
-    (u8_datasize/TEA_DATABLOCK_SIZE + 1)*2;
+    (*u8_datasize) % TEA_DATABLOCK_SIZE == 0 ? 
+    ((*u8_datasize)/TEA_DATABLOCK_SIZE) * 2 : 
+    ((*u8_datasize)/TEA_DATABLOCK_SIZE + 1)*2;
 
-  this->data = (uint32_t *)calloc(u32_datasize, sizeof(uint32_t));
-  memcpy(this->data, data, u8_datasize);
+  (*data) = (uint8_t *)reallocarray(*data, u32_datasize*8, sizeof(uint32_t));
 
+  this->data = (uint32_t *) (*data);
   this->data_size = u32_datasize;
+  *u8_datasize = u32_datasize*4;
 }
 
 tea_ctx_t::~tea_ctx_t()
 {
-  free(this->data);
 }
 
 void
