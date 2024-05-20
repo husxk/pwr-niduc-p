@@ -13,7 +13,7 @@ class tea_ctx_t {
     uint32_t    *data;
     uint32_t    data_size;
 
-    tea_ctx_t(uint8_t *data, uint32_t u8_datasize);
+    tea_ctx_t(uint8_t **data, uint32_t *u8_datasize);
     ~tea_ctx_t();
     
     void print_data(void);
