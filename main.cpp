@@ -27,8 +27,11 @@ simulation{
     enc = new tea_ctx_t(&(pack->data), &(pack->data_size));
     enc->encrypt_data();
     ble::packet *enc_pack = new ble::packet(pack);
+    pack->add_crc();
 
-    pack->distort_data(3);
+    pack->distort_data(0);
+
+    printf("%s", pack->check_crc(pack->crc) ? "CRC good\n" : "CRC not good\n");
 
     printf("This much %% of bits not matching : %f\n", 
         ((float)pack->check_packet(enc_pack)/((float)pack->data_size*8.0f))*100.0f);

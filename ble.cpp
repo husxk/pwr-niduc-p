@@ -5,6 +5,7 @@
 
 #include "tea.hpp"
 #include "ble.hpp"
+#include "data_process.hpp"
 
 #define BIT_COUNT 8
 
@@ -78,4 +79,18 @@ ble::packet::distort_data(uint8_t percent)
   }
 
   return 0;
+}
+
+  int
+ble::packet::add_crc()
+{
+  data_process crc;
+  this->crc = crc.generate_crc(this->data, this->data_size);
+  return 0;
+}
+
+  bool
+ble::packet::check_crc(uint32_t crc)
+{
+  return this->crc == crc;
 }
