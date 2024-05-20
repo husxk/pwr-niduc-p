@@ -8,6 +8,7 @@ add_executable(${PROJECT_NAME}
   main.cpp
   mt_rng.cpp
   tea.cpp
+  data_process.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
