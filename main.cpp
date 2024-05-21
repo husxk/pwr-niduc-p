@@ -71,6 +71,24 @@ simulation
             printf("CRC: CRC differs\n");
 
     free(test_packet);
+
+
+    printf("\nWhitening test\n");
+
+    test_packet = new ble::packet(pack);
+
+    process->whitening(test_packet->get_data(), test_packet->get_size());
+    process->whitening(test_packet->get_data(), test_packet->get_size());
+
+    res = std::memcmp(test_packet->get_cdata(),
+                       pack->get_cdata(),
+                       pack->get_size());
+
+    res == 0 ?
+            printf("Whitening: packets are equal\n") :
+            printf("Whitening: packets differs\n");
+
+    free(test_packet);
   }
 
   inline void
