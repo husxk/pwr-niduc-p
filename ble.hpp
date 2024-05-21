@@ -29,6 +29,21 @@ namespace ble
       {
         return this->data;
       }
+
+      uint8_t* get_data()
+      {
+        return this->data;
+      }
+
+      uint32_t* get_size_ptr()
+      {
+        return &data_size;
+      }
+
+      uint8_t** get_data_ptr()
+      {
+        return &data;
+      }
   };
 
 } // namespace ble
