@@ -7,6 +7,7 @@
 #include "mt_rng.hpp"
 #include "tea.hpp"
 #include "ble.hpp"
+#include "fec.hpp"
 #include "data_process.hpp"
 
 #define TEST_SIZE 0xFFFF
@@ -124,7 +125,6 @@ int
 main(void)
 {
   init_mt(time(NULL));
-
   simulation *sim = new simulation();
   sim->run(1);
 
