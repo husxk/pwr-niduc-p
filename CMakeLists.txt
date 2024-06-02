@@ -2,10 +2,11 @@ cmake_minimum_required(VERSION 3.13)
 
 project(ble_sim CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(${PROJECT_NAME}
   main.cpp
+  fec.cpp
   mt_rng.cpp
   tea.cpp
   data_process.cpp
