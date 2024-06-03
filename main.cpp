@@ -88,8 +88,29 @@ simulation
     res == 0 ?
             printf("Whitening: packets are equal\n") :
             printf("Whitening: packets differs\n");
+  
+    free(test_packet);
+
+    printf("\n Forward Error Correction test\n");
+
+    test_packet =  new ble::packet(pack);
+    fec err_cor;
+
+    err_cor.encode_pack(test_packet->get_data_ptr(),  test_packet->get_size_ptr());
+
+    ble::packet *distr_packet = new ble::packet(test_packet);
+    distr_packet->distort_data(2);
+
+    int good_bitcount = err_cor.decode_pack(test_packet->get_data_ptr(), test_packet->get_size_ptr());
+    int bad_bitcount = err_cor.decode_pack(distr_packet->get_data_ptr(), distr_packet->get_size_ptr());
+
+    if(distr_packet->check_packet(*test_packet) == 0)
+      printf("Packet corrected right, error count : %d\n", bad_bitcount);
+    else
+      printf("Packet corrected wrong, error count : %d\n", bad_bitcount);
 
     free(test_packet);
+    free(distr_packet);
   }
 
   inline void
